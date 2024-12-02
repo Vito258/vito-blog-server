@@ -1,8 +1,9 @@
 package initialize
 
 import (
-	"example.com/vito-blog-server/router"
 	"fmt"
+
+	"example.com/vito-blog-server/router"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,6 +21,7 @@ func RouterInit() {
 	// 注册路由
 	{
 		systemRouter.InitTechArticleRouter(Router)
+		systemRouter.InitTestRouter(Router)
 	}
 
 	// 启动 HTTP 服务器

@@ -1,6 +1,7 @@
 package global
 
 import (
+	"example.com/vito-blog-server/models/common"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
@@ -10,6 +11,7 @@ var (
 	BLOG_DB      *gorm.DB
 	BLOG_ROUTERS gin.RoutesInfo
 	BLOG_LOG     *zap.Logger
+	BLOG_CONFIG  common.Config
 	//BLOG_DBList              map[string]*gorm.DB
 	//BLOG_REDIS               redis.UniversalClient
 	//BLOG_REDISList           map[string]redis.UniversalClient
