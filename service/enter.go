@@ -4,6 +4,7 @@ var ServiceGroupApp = new(ServiceGroup)
 
 type ServiceGroup struct {
 	TechArticleService
+	TechArticleTypeService
 }
 
 type EnterRequest struct {
