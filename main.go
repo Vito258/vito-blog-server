@@ -11,6 +11,9 @@ func init() {
 	// 解析config.yaml配置文件
 	initialize.DecoderYaml()
 
+	// 日志的初始化
+	initialize.LogInit()
+
 	// 数据库的初始化
 	initialize.DbInit()
 

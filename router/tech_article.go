@@ -19,5 +19,6 @@ func (r *TechArticleRouter) InitTechArticleRouter(Router *gin.Engine) {
 	{
 		//techArticleRouterWithoutRecord.POST("createTechArticle", CreateTechArticle)
 		techArticleRouterWithoutRecord.GET("getTechArticleList", (&api.TechArticleApi{}).GetTechArticleList)
+		techArticleRouterWithoutRecord.GET("getTechArticleListByType", (&api.TechArticleApi{}).GetTechArticleListByType)
 	}
 }

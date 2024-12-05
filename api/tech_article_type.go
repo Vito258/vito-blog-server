@@ -17,5 +17,5 @@ func (b *TechArticleTypeApi) GetTechArticleTypeList(c *gin.Context) {
 		response.FailWithMessage("获取失败", c)
 		return
 	}
-	response.OkWithDetailed(gin.H{"article": ReqArticleTypeList}, "获取成功", c)
+	response.OkWithDetailed(gin.H{"articleTypes": ReqArticleTypeList}, "获取成功", c)
 }

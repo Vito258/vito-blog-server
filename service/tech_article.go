@@ -15,3 +15,12 @@ func (techArticleService *TechArticleService) GetTechArticleList() (list []syste
 	}
 	return list, nil
 }
+
+func (techArticleService *TechArticleService) GetTechArticleListByType(typeId int) (list []system.TechArticle, err error) {
+	// 按照 typeId 查询 TechArticle 的所有记录
+	err = global.BLOG_DB.Find(&list, "type_id = ?", typeId).Error
+	if err != nil {
+		return nil, err
+	}
+	return list, nil
+}
