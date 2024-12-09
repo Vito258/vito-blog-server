@@ -24,3 +24,12 @@ func (techArticleService *TechArticleService) GetTechArticleListByType(typeId in
 	}
 	return list, nil
 }
+
+func (techArticleService *TechArticleService) GetTechArticleById(id int) (article *system.TechArticle, err error) {
+	// 按照 Id 查询 TechArticle 的单条记录
+	err = global.BLOG_DB.First(&article, "id = ?", id).Error
+	if err != nil {
+		return nil, err
+	}
+	return article, nil
+}

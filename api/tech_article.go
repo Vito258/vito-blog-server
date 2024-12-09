@@ -38,3 +38,21 @@ func (b *TechArticleApi) GetTechArticleListByType(c *gin.Context) {
 	}
 	response.OkWithDetailed(gin.H{"articles": ReqArticleList}, "获取成功", c)
 }
+
+func (b *TechArticleApi) GetTechArticleById(c *gin.Context) {
+
+	idStr := c.Query("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		global.BLOG_LOG.Error("文章ID转换失败!", zap.Error(err))
+		response.FailWithMessage("文章ID无效", c)
+		return
+	}
+	ReqArticle, err := techArticleService.GetTechArticleById(id)
+	if err != nil {
+		global.BLOG_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+		return
+	}
+	response.OkWithDetailed(gin.H{"article": ReqArticle}, "获取成功", c)
+}
