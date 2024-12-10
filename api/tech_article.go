@@ -1,6 +1,8 @@
 package api
 
 import (
+	"bytes"
+	"io"
 	"strconv"
 
 	"example.com/vito-blog-server/global"
@@ -60,6 +62,13 @@ func (b *TechArticleApi) GetTechArticleById(c *gin.Context) {
 
 func (b *TechArticleApi) SaveTechArticle(c *gin.Context) {
 	var article system.TechArticle
+	// 打印接收到的原始 JSON 数据
+	bodyBytes, _ := io.ReadAll(c.Request.Body)
+	global.BLOG_LOG.Info("接收到的请求体:", zap.String("body", string(bodyBytes)))
+
+	// 重置请求体流，以便后续的 ShouldBindJSON 能够正常读取
+	c.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+
 	if err := c.ShouldBindJSON(&article); err != nil {
 		global.BLOG_LOG.Error("文章转换失败:", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
