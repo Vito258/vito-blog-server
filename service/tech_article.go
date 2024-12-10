@@ -33,3 +33,13 @@ func (techArticleService *TechArticleService) GetTechArticleById(id int) (articl
 	}
 	return article, nil
 }
+
+func (techArticleService *TechArticleService) SaveTechArticle(article *system.TechArticle) (rowsAffected int64, err error) {
+	// 新增一条 TeachchArticle记录
+	result := global.BLOG_DB.Create(&article)
+
+	if result.Error != nil {
+		return result.RowsAffected, err
+	}
+	return result.RowsAffected, nil
+}
