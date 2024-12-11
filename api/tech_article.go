@@ -1,9 +1,8 @@
 package api
 
 import (
-	"bytes"
-	"io"
 	"strconv"
+	"time"
 
 	"example.com/vito-blog-server/global"
 	"example.com/vito-blog-server/models/common/response"
@@ -62,12 +61,14 @@ func (b *TechArticleApi) GetTechArticleById(c *gin.Context) {
 
 func (b *TechArticleApi) SaveTechArticle(c *gin.Context) {
 	var article system.TechArticle
-	// 打印接收到的原始 JSON 数据
-	bodyBytes, _ := io.ReadAll(c.Request.Body)
-	global.BLOG_LOG.Info("接收到的请求体:", zap.String("body", string(bodyBytes)))
 
-	// 重置请求体流，以便后续的 ShouldBindJSON 能够正常读取
-	c.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+	// 更新时间
+	nowDate := time.Now()
+	if article.CreatedDate.IsZero() {
+		article.CreatedDate = nowDate
+	}
+	article.CreatedDate = nowDate
+	article.UpdatedDate = nowDate
 
 	if err := c.ShouldBindJSON(&article); err != nil {
 		global.BLOG_LOG.Error("文章转换失败:", zap.Error(err))
@@ -82,5 +83,5 @@ func (b *TechArticleApi) SaveTechArticle(c *gin.Context) {
 		return
 	}
 
-	response.OkWithDetailed(gin.H{"article": rowsAffect}, "创建成功", c)
+	response.OkWithDetailed(gin.H{"articleRowAffect": rowsAffect}, "创建成功", c)
 }

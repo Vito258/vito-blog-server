@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"example.com/vito-blog-server/global"
-	"example.com/vito-blog-server/models/system"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -30,14 +29,5 @@ func DbInit() {
 	global.BLOG_DB = db
 
 	// 迁移 schema
-	db.AutoMigrate(&system.BlogUser{})
-
-	// Create
-	db.Create(&system.BlogUser{Id: 1})
-
-	// Read
-	var user system.BlogUser
-	db.First(&user, 1) // 根据整型主键查找\
-
-	fmt.Printf("username: %s\n", user.UserName)
+	// db.AutoMigrate(&system.BlogUser{})
 }

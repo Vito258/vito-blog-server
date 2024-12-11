@@ -35,8 +35,8 @@ func (techArticleService *TechArticleService) GetTechArticleById(id int) (articl
 }
 
 func (techArticleService *TechArticleService) SaveTechArticle(article *system.TechArticle) (rowsAffected int64, err error) {
-	// 新增一条 TeachchArticle记录
-	result := global.BLOG_DB.Create(&article)
+	// 新增一条 TechArticle记录
+	result := global.BLOG_DB.Save(&article)
 
 	if result.Error != nil {
 		return result.RowsAffected, err
