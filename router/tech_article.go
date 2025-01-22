@@ -22,5 +22,7 @@ func (r *TechArticleRouter) InitTechArticleRouter(Router *gin.Engine) {
 		techArticleRouterWithoutRecord.GET("getTechArticleListByType", (&api.TechArticleApi{}).GetTechArticleListByType)
 		techArticleRouterWithoutRecord.GET("getTechArticleById", (&api.TechArticleApi{}).GetTechArticleById)
 		techArticleRouterWithoutRecord.POST("saveTechArticle", (&api.TechArticleApi{}).SaveTechArticle)
+		techArticleRouterWithoutRecord.POST("updateTechArticle", (&api.TechArticleApi{}).UpdateTechArticle)
+		techArticleRouterWithoutRecord.POST("deleteTechArticle", (&api.TechArticleApi{}).DeleteTechArticle)
 	}
 }

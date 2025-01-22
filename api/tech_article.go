@@ -85,3 +85,41 @@ func (b *TechArticleApi) SaveTechArticle(c *gin.Context) {
 
 	response.OkWithDetailed(gin.H{"articleRowAffect": rowsAffect}, "创建成功", c)
 }
+
+func (b *TechArticleApi) UpdateTechArticle(c *gin.Context) {
+	var article system.TechArticle
+
+	// 更新时间
+	nowDate := time.Now()
+	article.UpdatedDate = nowDate
+
+	if err := c.ShouldBindJSON(&article); err != nil {
+		global.BLOG_LOG.Error("文章转换失败:", zap.Error(err))
+		response.FailWithMessage("创建失败", c)
+		return
+	}
+	rowsAffect, err := techArticleService.UpdateTechArticle(&article)
+	if rowsAffect < 1 || err != nil {
+		global.BLOG_LOG.Error("数据库操作失败:", zap.Error(err))
+		response.FailWithMessage("创建失败", c)
+		return
+	}
+	response.OkWithDetailed(gin.H{"articleRowAffect": rowsAffect}, "修改成功", c)
+}
+
+func (b *TechArticleApi) DeleteTechArticle(c *gin.Context) {
+	idStr := c.Query("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		global.BLOG_LOG.Error("文章ID转换失败:", zap.Error(err))
+		response.FailWithMessage("文章ID无效", c)
+		return
+	}
+	rowsAffect, err := techArticleService.DeleteTechArticle(id)
+	if rowsAffect < 1 || err != nil {
+		global.BLOG_LOG.Error("数据库操作失败:", zap.Error(err))
+		response.FailWithMessage("删除失败", c)
+		return
+	}
+	response.OkWithDetailed(gin.H{"articleRowAffect": rowsAffect}, "删除成功", c)
+}

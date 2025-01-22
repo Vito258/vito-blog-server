@@ -43,3 +43,25 @@ func (techArticleService *TechArticleService) SaveTechArticle(article *system.Te
 	}
 	return result.RowsAffected, nil
 }
+
+func (techArticleService *TechArticleService) UpdateTechArticle(article *system.TechArticle) (rowsAffected int64, err error) {
+	// 修改一条 TechArticle记录
+	result := global.BLOG_DB.Model(article).Updates(article)
+
+	if result.Error != nil {
+		return result.RowsAffected, result.Error
+	}
+	return result.RowsAffected, nil
+}
+
+func (techArticleService *TechArticleService) DeleteTechArticle(id int) (rowsAffected int64, err error) {
+	// 逻辑删除一条 TechArticle记录，将 delete_flag 设置为 true
+	result := global.BLOG_DB.Model(&system.TechArticle{}).
+		Where("id = ?", id).
+		Update("delete_flag", true)
+
+	if result.Error != nil {
+		return result.RowsAffected, result.Error
+	}
+	return result.RowsAffected, nil
+}
