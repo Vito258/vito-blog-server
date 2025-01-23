@@ -43,7 +43,7 @@ func (b *TechArticleApi) GetTechArticleListByType(c *gin.Context) {
 
 func (b *TechArticleApi) GetTechArticleById(c *gin.Context) {
 
-	idStr := c.Query("id")
+	idStr := c.Param("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		global.BLOG_LOG.Error("文章ID转换失败:", zap.Error(err))
