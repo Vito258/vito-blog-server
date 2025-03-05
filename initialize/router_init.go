@@ -23,6 +23,7 @@ func RouterInit() {
 		systemRouter.InitTechArticleRouter(Router)
 		systemRouter.InitTestRouter(Router)
 		systemRouter.InitTechArticleTypeRouter(Router)
+		systemRouter.InitUserRouter(Router)
 	}
 
 	// 启动 HTTP 服务器
